@@ -27,3 +27,18 @@ CREATE TABLE pedido(
     PRIMARY KEY (cod),
     FOREIGN KEY (produto_cod) REFERENCES produto(cod)
 );
+
+
+--@block
+INSERT INTO categoria(nome) VALUES
+("eletrodomesticos"),
+("ferramentas"),
+("limpeza"),
+("cozinha"),
+("moveis");
+
+--@block
+INSERT INTO produto(nome, quantidade, categoria_cod) VALUES
+("Microondas", 20, 1),
+("Chave de Fenda", 42, 2),
+("Vassoura", 34, 3);
