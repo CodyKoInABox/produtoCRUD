@@ -1,0 +1,16 @@
+{
+  "name": "produtocrud",
+  "version": "1.0.0",
+  "description": "Rest API CRUD + Token Auth | N3 materia Server-Side",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "CodyKoInABox",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5"
+  }
+}
