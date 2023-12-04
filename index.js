@@ -153,6 +153,21 @@ app.get('/listarcategorias', (req, res) =>{
 
 })
 
+// criar nova categoria
+app.get('/criarcategoria/:nome', (req, res) => {
+
+    let query = `INSERT INTO categoria(nome) VALUES (${req.params.nome});`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
 
 //-------------------------//
 //  FIM
