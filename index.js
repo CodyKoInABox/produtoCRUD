@@ -108,6 +108,37 @@ app.get('/adicionarproduto/:nome/:quantidade', (req, res ) =>{
         }
     })
 
+    let testQuery = `SELECT quantidade FROM produto WHERE nome = "${req.params.nome}";`
+    let temp;
+
+    connection.query(testQuery, (err, results, fields) => {
+        
+        if(results[0].quantidade <= 3){
+
+            temp = true
+
+        }else if(results[0].quantidade < 7){
+
+            temp = false
+        }
+    })
+
+    let newQuery;
+    if(temp){
+        newQuery = `INSERT INTO pedido(produto_cod, quantidade) SELECT p.cod, 4 FROM produto p WHERE p.nome = "${req.params.nome}"`
+    }else{
+        newQuery = `INSERT INTO pedido(produto_cod, quantidade) SELECT p.cod, 3 FROM produto p WHERE p.nome = "${req.params.nome}"`
+    }
+
+    connection.query(newQuery, (err, results, fields) =>{
+        if(err == null){
+            console.log("Pedido Criado! -> " + results)
+        }else{
+            console.log(err)
+        }
+    })
+
+    newQuery = '';
 })
 
 
@@ -124,6 +155,39 @@ app.get('/removerproduto/:nome/:quantidade', (req, res) =>{
             res.status(200).send(err)
         }
     })
+
+
+    let testQuery = `SELECT quantidade FROM produto WHERE nome = "${req.params.nome}";`
+    let temp;
+
+    connection.query(testQuery, (err, results, fields) => {
+        
+        if(results[0].quantidade <= 3){
+
+            temp = true
+
+        }else if(results[0].quantidade < 7){
+
+            temp = false
+        }
+    })
+
+    let newQuery;
+    if(temp){
+        newQuery = `INSERT INTO pedido(produto_cod, quantidade) SELECT p.cod, 4 FROM produto p WHERE p.nome = "${req.params.nome}"`
+    }else{
+        newQuery = `INSERT INTO pedido(produto_cod, quantidade) SELECT p.cod, 3 FROM produto p WHERE p.nome = "${req.params.nome}"`
+    }
+
+    connection.query(newQuery, (err, results, fields) =>{
+        if(err == null){
+            console.log("Pedido Criado! -> " + results)
+        }else{
+            console.log(err)
+        }
+    })
+
+    newQuery = '';
 
 })
 
