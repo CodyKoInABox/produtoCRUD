@@ -1,4 +1,5 @@
 const express = require('express')
+const res = require('express/lib/response')
 const app = express()
 
 const PORT = process.env.PORT || 8080
@@ -15,6 +16,56 @@ const connection = mysql.createConnection({
 app.get('/ping', (req, res) => {
     res.send('pong!')
 })
+
+
+// CRUD produto:
+
+// criar novo produto
+app.get('/criarproduto/:nome/:quantidade/:categoria', (req, res) => {
+
+
+})
+
+
+// lista com todos os produtos com a opcao de listar por categoria
+app.get('/listarprodutos', (req, res) =>{
+
+    let query = 'SELECT * FROM produto'
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
+
+
+// atualizar informacao de um produto por codigo
+app.get('/atualizarproduto/:cod/:nome/:quantidade/:categoria', (req, res) => {
+
+})
+
+// apagar produto
+app.get('/deletarproduto/:nome', (req, res ) => {
+
+})
+
+// adicionar mais quantidade de um produto
+app.get('/adicionarproduto/:nome/:quantidade', (req, res ) =>{
+
+})
+
+
+// remover quantidade de um produto
+app.get('/removerproduto/:nome:quantidade', (req, res) =>{
+
+})
+
+
 
 app.listen(PORT, () => {
     console.log(`Live on port ${PORT}`)
