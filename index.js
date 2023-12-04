@@ -245,6 +245,22 @@ app.get('/criarpedido/:produtocod/:quantidade', (req, res) => {
 
 })
 
+// atualizar um pedido com base em seu codigo
+app.get('/atualizarpedido/:cod/:produtocod/:quantidade', (req, res) => {
+
+    let query = `UPDATE pedido SET produto_cod = ${req.params.produtocod}, quantidade = ${req.params.quantidade} WHERE cod = ${req.params.cod};`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
+
 
 //-------------------------//
 //  FIM
