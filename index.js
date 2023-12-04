@@ -261,6 +261,21 @@ app.get('/atualizarpedido/:cod/:produtocod/:quantidade', (req, res) => {
 
 })
 
+// deletar um pedido
+app.get('/deletarpedido/:cod', (req, res ) => {
+
+    let query = `DELETE FROM pedido WHERE cod = ${req.params.cod};`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
 
 //-------------------------//
 //  FIM
