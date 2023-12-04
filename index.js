@@ -19,8 +19,9 @@ const jwt = require('jsonwebtoken')
 
 app.use(express.json())
 
-app.get('/ping', (req, res) => {
-    res.send('pong!')
+app.get('/ping/:token', authToken, (req, res) => {
+
+    res.send('pong! ' + req.user)
 })
 
 // TODO:
@@ -39,6 +40,21 @@ app.get('/login/:username', (req, res) => {
 
     res.json({acessToken: acessToken})
 })
+
+
+function authToken(req, res, next){
+    const token = req.params.token
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if(err){
+            return res.sendStatus(403)
+        }
+
+        req.user = user
+        next()
+    })
+
+}
 
 //-------------------------//
 //  INICIO
