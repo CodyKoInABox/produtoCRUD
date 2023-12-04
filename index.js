@@ -18,7 +18,11 @@ app.get('/ping', (req, res) => {
 })
 
 
-// CRUD produto:
+//-------------------------//
+//  INICIO
+//-------------------------//
+//  CRUD -> PRODUTO
+//-------------------------//
 
 // criar novo produto
 app.get('/criarproduto/:nome/:quantidade/:categoriacod', (req, res) => {
@@ -33,7 +37,7 @@ app.get('/criarproduto/:nome/:quantidade/:categoriacod', (req, res) => {
             res.status(200).send(err)
         }
     })
-    
+
 })
 
 
@@ -118,6 +122,43 @@ app.get('/removerproduto/:nome/:quantidade', (req, res) =>{
     })
 
 })
+
+//-------------------------//
+//  FIM
+//-------------------------//
+//  CRUD -> PRODUTO
+//-------------------------//
+
+
+//-------------------------//
+//  INICIO
+//-------------------------//
+//  CRUD -> CATEGORIA
+//-------------------------//
+
+
+// listar todas as categorias
+app.get('/listarcategorias', (req, res) =>{
+
+    let query = 'SELECT * FROM categoria'
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
+
+
+//-------------------------//
+//  FIM
+//-------------------------//
+//  CRUD -> CATEGORIA
+//-------------------------//
 
 
 app.listen(PORT, () => {
