@@ -17,6 +17,10 @@ app.get('/ping', (req, res) => {
     res.send('pong!')
 })
 
+// TODO:
+// -> verificar se quantidade de produto bate com os requisitos na hora de: aumentar produto, diminuir produto, criar produto.
+// -> pedido de 4 se quantidade <= 3
+// -> pedido de 3 se 3 > quantidade < 7
 
 //-------------------------//
 //  INICIO
