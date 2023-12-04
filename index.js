@@ -169,6 +169,22 @@ app.get('/criarcategoria/:nome', (req, res) => {
 
 })
 
+// atualizar uma categoria com base em seu codigo
+app.get('/atualizarcategoria/:cod/:nome', (req, res) => {
+
+    let query = `UPDATE categoria SET nome = ${req.params.nome} WHERE cod = ${req.params.cod};`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
+
 //-------------------------//
 //  FIM
 //-------------------------//
