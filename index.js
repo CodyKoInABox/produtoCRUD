@@ -57,6 +57,17 @@ app.get('/deletarproduto/:nome', (req, res ) => {
 // adicionar mais quantidade de um produto
 app.get('/adicionarproduto/:nome/:quantidade', (req, res ) =>{
 
+    let query = `UPDATE produto SET quantidade = quantidade + ${req.params.quantidade} WHERE nome = '${req.params.nome}';`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
 })
 
 
@@ -64,7 +75,6 @@ app.get('/adicionarproduto/:nome/:quantidade', (req, res ) =>{
 app.get('/removerproduto/:nome:quantidade', (req, res) =>{
 
 })
-
 
 
 app.listen(PORT, () => {
