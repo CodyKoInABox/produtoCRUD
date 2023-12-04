@@ -13,6 +13,12 @@ const connection = mysql.createConnection({
     database: 'produtoN3' // aqui vai o nome da database, ela deve seguir o padrao encontrado no README.md deste repositorio
 })
 
+require("dotenv").config();
+
+const jwt = require('jsonwebtoken')
+
+app.use(express.json())
+
 app.get('/ping', (req, res) => {
     res.send('pong!')
 })
@@ -21,6 +27,18 @@ app.get('/ping', (req, res) => {
 // -> verificar se quantidade de produto bate com os requisitos na hora de: aumentar produto, diminuir produto, criar produto.
 // -> pedido de 4 se quantidade <= 3
 // -> pedido de 3 se 3 > quantidade < 7
+
+
+app.get('/login/:username', (req, res) => {
+
+    const username = req.params.username
+    const user = { name: username }
+
+
+    const acessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+
+    res.json({acessToken: acessToken})
+})
 
 //-------------------------//
 //  INICIO
