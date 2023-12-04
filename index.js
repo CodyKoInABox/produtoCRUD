@@ -45,7 +45,18 @@ app.get('/listarprodutos', (req, res) =>{
 
 
 // atualizar informacao de um produto por codigo
-app.get('/atualizarproduto/:cod/:nome/:quantidade/:categoria', (req, res) => {
+app.get('/atualizarproduto/:cod/:nome/:quantidade/:categoriacod', (req, res) => {
+
+    let query = `UPDATE produto SET nome = ${req.params.nome}, quantidade = ${req.params.quantidade}, categoria = ${req.params.categoriacod} WHERE cod = ${req.params.cod};`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
 
 })
 
