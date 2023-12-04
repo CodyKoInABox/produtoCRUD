@@ -52,6 +52,17 @@ app.get('/atualizarproduto/:cod/:nome/:quantidade/:categoria', (req, res) => {
 // apagar produto
 app.get('/deletarproduto/:nome', (req, res ) => {
 
+    let query = `DELETE FROM produto WHERE nome = ${req.params.nome};`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+    
 })
 
 // adicionar mais quantidade de um produto
