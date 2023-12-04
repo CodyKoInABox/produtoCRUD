@@ -185,6 +185,22 @@ app.get('/atualizarcategoria/:cod/:nome', (req, res) => {
 
 })
 
+// deletar uma categoria
+app.get('/deletarcategoria/:nome', (req, res ) => {
+
+    let query = `DELETE FROM categoria WHERE nome = ${req.params.nome};`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
+
 //-------------------------//
 //  FIM
 //-------------------------//
