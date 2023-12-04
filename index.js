@@ -2,7 +2,7 @@ const express = require('express')
 const res = require('express/lib/response')
 const app = express()
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 9090
 
 const mysql = require('mysql2')
 
@@ -10,7 +10,7 @@ const mysql = require('mysql2')
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    database: 'produtoN3' // aqui vai o nome da database, ela deve seguir o padrao encontrado no README.md deste repositorio
+    database: 'serversiden3' // aqui vai o nome da database, ela deve seguir o padrao encontrado no README.md deste repositorio
 })
 
 require("dotenv").config();
@@ -21,7 +21,7 @@ app.use(express.json())
 
 app.get('/ping/:token', authToken, (req, res) => {
 
-    res.send('pong! ' + req.user)
+    res.send('pong! Hello, ' + req.user.name + ' !')
 })
 
 // TODO:
@@ -93,6 +93,36 @@ app.get('/listarprodutos', (req, res) =>{
         }
     })
 
+})
+
+// buscar produtos de certa categoria
+app.get('/produtosporcategoria/:categoria', (req, res) => {
+
+    let query = `SELECT p.cod, p.nome, p.quantidade FROM produto p INNER JOIN categoria c ON c.cod = p.categoria_cod WHERE c.nome = "${req.params.categoria}"`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+})
+
+// buscar produtos por quantidade de pedidos
+app.get('/produtosporpedidos/:numerodepedidos', (req, res) => {
+
+    let query = `SELECT p.cod, p.nome, p.quantidade FROM produto p INNER JOIN categoria c ON c.cod = p.categoria_cod WHERE COUNT(c.cod) = ${req.params.numerodepedidos}`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
 })
 
 
