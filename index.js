@@ -21,9 +21,19 @@ app.get('/ping', (req, res) => {
 // CRUD produto:
 
 // criar novo produto
-app.get('/criarproduto/:nome/:quantidade/:categoria', (req, res) => {
+app.get('/criarproduto/:nome/:quantidade/:categoriacod', (req, res) => {
 
+    let query = `INSERT INTO produto(nome, quantidade, categoria_cod) VALUES (${req.params.nome}, ${req.params.quantidade}, ${req.params.categoriacod});`
 
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+    
 })
 
 
@@ -73,7 +83,7 @@ app.get('/deletarproduto/:nome', (req, res ) => {
             res.status(200).send(err)
         }
     })
-    
+
 })
 
 // adicionar mais quantidade de um produto
