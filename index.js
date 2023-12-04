@@ -229,6 +229,22 @@ app.get('/listarpedidos', (req, res) =>{
 
 })
 
+// criar novo pedido
+app.get('/criarpedido/:produtocod/:quantidade', (req, res) => {
+
+    let query = `INSERT INTO pedido(produto_cod, quantidade) VALUES (${req.params.produtocod}, ${req.params.quantidade});`
+
+    connection.query(query, (err, results, fields) => {
+
+        if(err == null){
+            res.status(400).json(results)
+        }else{
+            res.status(200).send(err)
+        }
+    })
+
+})
+
 
 //-------------------------//
 //  FIM
